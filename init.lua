@@ -5,16 +5,17 @@ minetest.register_node("craft_clouds:cloud",{
 	is_ground_content = true,
 	groups = {oddly_breakable_by_hand = 2, crumbly = 1},
 })
-local cloud_height = 150
-local cloud_depth = 5
+local cloud_height = 128
+local cloud_depth = 8
 
 local clouds = {
-	offset = -0.5,
+	offset = 0,
 	scale = 1,
-	spread = {x=12,y=3,z=12},
-	octaves = 2,
+	spread = {x=40,y=7,z=40},
+	octaves = 3,
 	seeddiff = 24,
-	persist = 0.5,
+	persist = 0.6,
+	lacunarity = 2,
 	flags = "eased",
 }
 
@@ -47,13 +48,13 @@ minetest.register_on_generated(function(minp,maxp,chunkseed)
 		for y=minp.y,maxp.y do
 			local vi = area:index(minp.x,y,z)
 			for x=minp.x,maxp.x do
-				local density = density_map[nixyz]
+				local density = math.abs(density_map[nixyz]) - 
+					math.abs(cloud_height-y)/(cloud_depth*2)
 				if data[vi] ~= air
 				or y > cloud_height + cloud_depth
 				or y < cloud_height - cloud_depth then
 				--do nothing
-				elseif density - math.abs(cloud_height - y)/cloud_depth
-				> 0 then
+				elseif density > 0.8 then
 					data[vi] = cloud
 				end
 				nixyz = nixyz + 1
