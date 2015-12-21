@@ -1,8 +1,8 @@
 minetest.register_node("craft_clouds:cloud",{
 	description = "A Fluffy Cloud",
+	drawtype = "normal",
 	tiles = {"default_cloud.png"},
-	alpha = 40,
-	use_texture_alpha = false,
+	--alpha = 120,
 	paramtype = "light",
 	sunlight_propagates = true,
 	is_ground_content = true,
