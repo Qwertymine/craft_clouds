@@ -1,7 +1,10 @@
 minetest.register_node("craft_clouds:cloud",{
 	description = "A Fluffy Cloud",
 	tiles = {"default_cloud.png"},
-	--alpha = 160,
+	alpha = 40,
+	use_texture_alpha = false,
+	paramtype = "light",
+	sunlight_propagates = true,
 	is_ground_content = true,
 	groups = {oddly_breakable_by_hand = 2, crumbly = 1},
 })
